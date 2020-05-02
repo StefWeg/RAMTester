@@ -1,0 +1,110 @@
+# Clock:
+NET "clk_i" LOC = "T9" ; # 50 MHz clock
+NET "clk_i" CLOCK_DEDICATED_ROUTE = FALSE;
+# Push-buttons:
+NET "rst_i" LOC = "L14" ; # pressed high BTN3
+# SW7:
+NET "sw7_i" LOC = "K13" ; # slider sw7
+# Seven-segment LED display:
+NET "led7_an_o<3>" LOC = "E13" ; # leftmost digit, active low
+NET "led7_an_o<2>" LOC = "F14" ; # active low
+NET "led7_an_o<1>" LOC = "G14" ; # active low
+NET "led7_an_o<0>" LOC = "D14" ; # rightmost digit, active low
+#
+NET "led7_seg_o<7>" LOC = "E14" ; # segment 'a', active low
+NET "led7_seg_o<6>" LOC = "G13" ; # segment 'b', active low
+NET "led7_seg_o<5>" LOC = "N15" ; # segment 'c', active low
+NET "led7_seg_o<4>" LOC = "P15" ; # segment 'd', active low
+NET "led7_seg_o<3>" LOC = "R16" ; # segment 'e', active low
+NET "led7_seg_o<2>" LOC = "F13" ; # segment 'f', active low
+NET "led7_seg_o<1>" LOC = "N16" ; # segment 'g', active low
+NET "led7_seg_o<0>" LOC = "P16" ; # segment 'dp', active low
+# SRAM pinout
+# Address bits common for both chips
+NET "addr_o<17>" LOC = "L3" ;
+NET "addr_o<16>" LOC = "K5" ;
+NET "addr_o<15>" LOC = "K3" ;
+NET "addr_o<14>" LOC = "J3" ;
+NET "addr_o<13>" LOC = "J4" ;
+NET "addr_o<12>" LOC = "H4" ;
+NET "addr_o<11>" LOC = "H3" ;
+NET "addr_o<10>" LOC = "G5" ;
+NET "addr_o<9>" LOC = "E4" ;
+NET "addr_o<8>" LOC = "E3" ;
+NET "addr_o<7>" LOC = "F4" ;
+NET "addr_o<6>" LOC = "F3" ;
+NET "addr_o<5>" LOC = "G4" ;
+NET "addr_o<4>" LOC = "L4" ;
+NET "addr_o<3>" LOC = "M3" ;
+NET "addr_o<2>" LOC = "M4" ;
+NET "addr_o<1>" LOC = "N3" ;
+NET "addr_o<0>" LOC = "L5" ;
+# Data and control bits
+# IC10
+NET "data_io<31>" LOC = "R1" ; # IC 10 IO15
+NET "data_io<30>" LOC = "P1" ; # IC 10 IO14
+NET "data_io<29>" LOC = "L2" ; # IC 10 IO13
+NET "data_io<28>" LOC = "J2" ; # IC 10 IO12
+NET "data_io<27>" LOC = "H1" ; # IC 10 IO11
+NET "data_io<26>" LOC = "F2" ; # IC 10 IO10
+NET "data_io<25>" LOC = "P8" ; # IC 10 IO9
+NET "data_io<24>" LOC = "D3" ; # IC 10 IO8
+NET "data_io<23>" LOC = "B1" ; # IC 10 IO7
+NET "data_io<22>" LOC = "C1" ; # IC 10 IO6
+NET "data_io<21>" LOC = "C2" ; # IC 10 IO5
+NET "data_io<20>" LOC = "R5" ; # IC 10 IO4
+NET "data_io<19>" LOC = "T5" ; # IC 10 IO3
+NET "data_io<18>" LOC = "R6" ; # IC 10 IO2
+NET "data_io<17>" LOC = "T8" ; # IC 10 IO1
+NET "data_io<16>" LOC = "N7" ; # IC 10 IO0
+NET "ce10_o" LOC = "P7" ; # chip enable of IC10
+NET "ub10_o" LOC = "T4" ; # upper byte enable of IC10
+NET "lb10_o" LOC = "P6" ; # lower byte enable of IC10
+# IC11
+NET "data_io<15>" LOC = "N1" ; # IC 11 IO15
+NET "data_io<14>" LOC = "M1" ; # IC 11 IO14
+NET "data_io<13>" LOC = "K2" ; # IC 11 IO13
+NET "data_io<12>" LOC = "C3" ; # IC 11 IO12
+NET "data_io<11>" LOC = "F5" ; # IC 11 IO11
+NET "data_io<10>" LOC = "G1" ; # IC 11 IO10
+NET "data_io<9>"  LOC = "E2" ; # IC 11 IO9
+NET "data_io<8>"  LOC = "D2" ; # IC 11 IO8
+NET "data_io<7>"  LOC = "D1" ; # IC 11 IO7
+NET "data_io<6>"  LOC = "E1" ; # IC 11 IO6
+NET "data_io<5>"  LOC = "G2" ; # IC 11 IO5
+NET "data_io<4>"  LOC = "J1" ; # IC 11 IO4
+NET "data_io<3>"  LOC = "K1" ; # IC 11 IO3
+NET "data_io<2>"  LOC = "M2" ; # IC 11 IO2
+NET "data_io<1>"  LOC = "N2" ; # IC 11 IO1
+NET "data_io<0>"  LOC = "P2" ; # IC 11 IO0
+NET "ce11_o" LOC = "N5" ; # chip enable of IC11
+NET "ub11_o" LOC = "R4" ; # upper byte enable of IC11
+NET "lb11_o" LOC = "P5" ; # lower byte enable of IC11
+# common control bits
+NET "oe_o" LOC = "K4" ; # output enable
+NET "we_o" LOC = "G3" ; # write enable
+
+
+# deklaracja nazwy specyfikacji jako TNM_NET = clk_in
+NET "clk_i" TNM_NET = "clk_in" ;
+# deklaracja zegara jako 20ns o wypenieniu 50%
+# oznacza to, e ukad b�zie tak implementowany, e zachowane zostan ograniczenia
+# czasowe wewntrz rdzenia tak aby przerzutniki doczone do clk_i
+# miay spenione czasy setup i hold
+# dla 20ns zegara
+TIMESPEC "TS_clk_i" = PERIOD "clk_in" 20ns HIGH 50%;
+# ograniczenie na zegar CLKFX po wstawieniu DCM jest automatycznie dodawane przez implementator
+# op�ienie globalne - ustalenie, e wszystkie sygnay generowane na zewntrz maj
+# by�op�ione o 30ns w stosunku do zegara clk_i
+OFFSET = OUT 30ns AFTER "clk_i";
+# op�ienie globalne - ustalenie, e wszystkie sygnay pobierane z zewntrz
+# s o 30ns szybciej ni zegar clk_i
+OFFSET = IN 30ns BEFORE "clk_i";
+# sprecyzowanie op�ie�dla wyprowadze�asynchronicznych
+# najpierw sygnay zostay zgrupowane w grupy o nazwach SIG_OUT SIG_IN a nast�nie utworzono
+# ograniczenie czasowe dla tej grupy
+TIMEGRP "SIG_OUT" = PADs ("addr_*" "data_*" "we_o" "oe_o");
+TIMESPEC TS01 = from FFS to SIG_OUT 8ns;
+TIMEGRP "SIG_IN" = PADs ("data_*");
+TIMESPEC TS02 = from SIG_IN to FFS 3ns;
+#
